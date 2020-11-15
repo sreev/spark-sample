@@ -2,9 +2,9 @@
 
 ## Using Spark Streaming - Stream & Process integers.
 
-### Download & Install Kafka
+### Download & Install Spark
 
-Download Kafka [here](https://spark.apache.org/downloads.html)
+Download Spark [here](https://spark.apache.org/downloads.html)
 
 ```
 % tar -zxf spark-2.4.7-bin-hadoop2.7.tgz
