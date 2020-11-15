@@ -38,18 +38,18 @@ public class JavaQueueStream {
         JavaStreamingContext javaStreamingContext = new JavaStreamingContext(sparkConf, new Duration(1000));
 
         List<Integer> input = new ArrayList<>();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 2000; i++) {
             input.add(i);
         }
 
         Queue<JavaRDD<Integer>> javaRDDQueue = new LinkedList<>();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 20; i++) {
             javaRDDQueue.add(javaStreamingContext.sparkContext().parallelize(input));
         }
 
         JavaDStream<Integer> inputStream = javaStreamingContext.queueStream(javaRDDQueue);
         JavaPairDStream<Integer, Integer> mappedStream = inputStream.mapToPair(i -> new Tuple2<>(i % 10, 1));
-        JavaPairDStream<Integer, Integer> reducedStream = mappedStream.reduceByKey((i1, i2) -> i1+i2);
+        JavaPairDStream<Integer, Integer> reducedStream = mappedStream.reduceByKey((i1, i2) -> i1-i2);
 
         reducedStream.print();
         javaStreamingContext.start();
